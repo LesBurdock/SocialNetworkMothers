@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route } from "react-router-dom";
+import { AuthProvider } from "./firebase/context";
+import SignIn from './components/SignIn';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import DirectMessage from './pages/DirectMessage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <AuthProvider>
+      <Route exact path="/" component={Home}/>
+      <Route path="/SignIn" component={SignIn}/>
+      <Route path="/Profile" component={Profile}/>
+      <Route path="/DirectMessage" component={DirectMessage}/>
+  </AuthProvider>
+);
 
 export default App;

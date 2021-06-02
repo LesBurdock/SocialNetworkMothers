@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { FirebaseAuth } from "react-firebaseui";
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import {FirebaseContext} from '../firebase/context';
+import Home from '../pages/Home';
+import Logo from '../images/Logo.png'
 
 
 // hoe to mange usdrs with firebase https://firebase.google.com/docs/auth/web/manage-users
@@ -10,7 +11,6 @@ import {FirebaseContext} from '../firebase/context';
 
   export default function SignIn() {
   //get the user state from the context
-  //actually this should be {user} but cannot destructure user is user is undefined...
   const {user} = useContext(FirebaseContext);
 
   //this is our config for FirebaseAuth
@@ -25,18 +25,19 @@ import {FirebaseContext} from '../firebase/context';
       signInSuccess: () => false,
     },
   };
-  console.log(user);
-//if user exists or signed in, we redirect the page to home, else display the sign in methods with FirebaseAuth
+
   return (
     <div>
-
       { !!user ? (
-        <div>
-          <p>you are signed in</p>
-        </div>
+      <div>
+          <h1>My App</h1>
+          <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+          <a className="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium" onClick={() => firebase.auth().signOut()}>Sign-out</a>
+      </div>
       ) : (
-        <div>
-          <p>Please Sign In</p>
+        <div className='m-auto max-w-xs flex-auto bg-white text-center'>
+          <img src={Logo} alt="Logo" className='self-center'/>
+          <p>Sign In to see photos and content from your friends</p>
           <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
         </div>
       )}

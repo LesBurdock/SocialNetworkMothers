@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navigation from '../components/Navigation';
+import SignIn from '../components/SignIn';
+import {FirebaseContext} from '../firebase/context';
 
 const Home = () => {
+  const {user} = useContext(FirebaseContext);
   return(
     <div>
-      <Navigation></Navigation>
-      <p>home page</p>
+      { !!user ? (
+        <div>
+            <Navigation></Navigation>
+            <p className='text-red-700'>home page</p>
+        </div>
+      ) : (
+        <SignIn></SignIn>
+      )}
     </div>
   )
 
